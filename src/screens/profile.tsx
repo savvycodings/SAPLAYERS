@@ -6,15 +6,15 @@ import { Text } from '../components/ui/text'
 import { ThemeContext } from '../context'
 import { SPACING, TYPOGRAPHY } from '../constants/layout'
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { ProfileHeader, ProfileTabs, SellCardsBanner, ProfileStats, PortfolioGraph, ActionButtons, ProductGrid, GoalProgress, SetChart, ListItemModal, OrderCard, type Order } from '../components/profile'
+import { ProfileHeader, ProfileTabs, SellCardsBanner, ProfileStats, PortfolioGraph, ActionButtons, ProductGrid, GoalProgress, SetChart, ListItemModal, OrderCard, type Order, AuctionSection, CreateAuctionModal, type Auction } from '../components/profile'
 import { Section } from '../components/layout/Section'
 import {
   StoreHeader,
   StoreStats,
   StoreListings,
   SafetyFilter,
-  StoreListing,
 } from '../components/store'
+import { type StoreListing } from '../components/store/StoreListings'
 
 type ProfileStackParamList = {
   ProfileMain: undefined
@@ -38,6 +38,8 @@ export function Profile() {
   const [vaultedOnly, setVaultedOnly] = useState(false)
   const [isListItemModalVisible, setIsListItemModalVisible] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState<{ name: string; image?: any } | null>(null)
+  const [isCreateAuctionModalVisible, setIsCreateAuctionModalVisible] = useState(false)
+  const [auctions, setAuctions] = useState<Auction[]>([])
 
   // Sample orders data
   const orders: Order[] = [
@@ -216,6 +218,18 @@ export function Profile() {
                 }}
               />
 
+              <Section title="Auctions">
+                <AuctionSection
+                  auctions={auctions}
+                  onCreateAuction={() => setIsCreateAuctionModalVisible(true)}
+                  onAuctionPress={(auction) => {
+                    // TODO: Navigate to auction detail page
+                    console.log('Auction pressed:', auction.id)
+                  }}
+                  showCreateButton={true}
+                />
+              </Section>
+
               <Section title="Portfolio Growth">
                 <PortfolioGraph
                   data={[
@@ -243,7 +257,7 @@ export function Profile() {
                   products={[
                     {
                       id: 0,
-                      name: 'Shining Charizard Secret',
+                      name: 'Shining Charizard',
                       price: '$ 150',
                       image: require('../../assets/singles/Shining_Charizard_Secret.jpg'),
                     },
@@ -431,8 +445,48 @@ export function Profile() {
           }}
         />
       )}
+
+      {/* Create Auction Modal */}
+      <CreateAuctionModal
+        visible={isCreateAuctionModalVisible}
+        onClose={() => setIsCreateAuctionModalVisible(false)}
+        onCreateAuction={(data) => {
+          // Create new auction with generated ID
+          const newAuction: Auction = {
+            id: `auction-${Date.now()}`,
+            title: data.title,
+            description: data.description,
+            startTime: data.startTime,
+            status: 'starting',
+            timeRemaining: calculateTimeRemaining(data.startTime),
+          }
+          setAuctions([...auctions, newAuction])
+          setIsCreateAuctionModalVisible(false)
+          // TODO: Save auction to backend
+          console.log('Created auction:', newAuction)
+        }}
+      />
     </View>
   )
+}
+
+// Helper function to calculate time remaining
+function calculateTimeRemaining(startTime: Date): string {
+  const now = new Date()
+  const diff = startTime.getTime() - now.getTime()
+  
+  if (diff <= 0) return 'Starting now'
+  
+  const hours = Math.floor(diff / (1000 * 60 * 60))
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+  
+  if (hours > 0) {
+    return `Starts in ${hours}h ${minutes}m`
+  } else if (minutes > 0) {
+    return `Starts in ${minutes}m`
+  } else {
+    return 'Starting now'
+  }
 }
 
 const getStyles = (theme: any) => StyleSheet.create({

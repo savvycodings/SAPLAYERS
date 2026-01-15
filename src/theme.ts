@@ -96,7 +96,7 @@ const wizards = {
   label: 'wizards',
   backgroundColor: '#000000', // Lighter dark background
   cardBackground: '#000000', // Solid black cards for contrast
-  buttonBackground: '#000000)', // Dark button backgrounds
+  buttonBackground: '#000000', // Dark button backgrounds
   tintColor: '#73EC8B',
   tintTextColor: colors.black,
   tabBarActiveTintColor: '#73EC8B',

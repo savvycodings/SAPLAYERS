@@ -57,7 +57,7 @@ export function Carousel({
           const content = renderItem(item, index)
           return (
             <View
-              key={index}
+              key={item?.id || index}
               style={[
                 styles.item,
                 {

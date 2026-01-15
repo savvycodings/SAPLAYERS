@@ -13,8 +13,9 @@ import {
   StoreStats,
   StoreListings,
   SafetyFilter,
-  StoreListing,
 } from '../components/store'
+import { type StoreListing } from '../components/store/StoreListings'
+import { AuctionSection, type Auction } from '../components/profile'
 
 type ViewProfileStackParamList = {
   ViewProfile: {
@@ -50,6 +51,29 @@ export function ViewProfile() {
   const styles = getStyles(theme)
   const [vaultedOnly, setVaultedOnly] = useState(false)
   const [reviewsExpanded, setReviewsExpanded] = useState(false)
+
+  // Sample auctions data for the viewed user
+  const userAuctions: Auction[] = [
+    {
+      id: 'auction-1',
+      title: 'Rare Charizard Collection',
+      description: 'Auctioning off my premium Charizard cards.',
+      status: 'live',
+      timeRemaining: 'Ends in 2h 30m',
+      currentBid: 450,
+      bidCount: 12,
+      image: require('../../assets/singles/Shining_Charizard_Secret.jpg'),
+    },
+    {
+      id: 'auction-2',
+      title: 'Hidden Fates Elite Trainer Box',
+      description: 'New in box, never opened. Starting bid $120.',
+      status: 'starting',
+      timeRemaining: 'Starts in 45m',
+      currentBid: 120,
+      bidCount: 3,
+    },
+  ]
 
   // Sample reviews data
   const reviews = [
@@ -213,6 +237,19 @@ export function ViewProfile() {
             reviewPercentage={98}
           />
         </Section>
+
+        {userAuctions.length > 0 && (
+          <Section title="Auctions">
+            <AuctionSection
+              auctions={userAuctions}
+              onAuctionPress={(auction) => {
+                // TODO: Navigate to auction detail page
+                console.log('Auction pressed:', auction.id)
+              }}
+              showCreateButton={false}
+            />
+          </Section>
+        )}
 
         <Section title="Reviews">
           <Card style={styles.reviewsCard}>
