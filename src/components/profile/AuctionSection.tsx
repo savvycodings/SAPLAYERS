@@ -177,7 +177,7 @@ const getStyles = (theme: any) => StyleSheet.create({
     height: '100%',
     borderRadius: RADIUS.lg,
     overflow: 'hidden',
-    padding: SPACING.cardPadding,
+    padding: SPACING.md,
     justifyContent: 'space-between',
     borderWidth: 2,
     backgroundColor: theme.cardBackground || '#000000',
@@ -198,7 +198,8 @@ const getStyles = (theme: any) => StyleSheet.create({
   },
   auctionTopContent: {
     width: '100%',
-    marginBottom: 10,
+    marginBottom: 8,
+    flexShrink: 1,
   },
   statusBadge: {
     alignSelf: 'flex-start',
@@ -235,24 +236,25 @@ const getStyles = (theme: any) => StyleSheet.create({
   },
   auctionBottomContent: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'flex-end',
     flex: 1,
+    minHeight: 0,
   },
   auctionLeftContent: {
     flex: 1,
     width: '100%',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
+    gap: 8,
   },
   auctionDescription: {
     fontSize: TYPOGRAPHY.bodySmall,
     fontFamily: theme.regularFont,
     color: theme.mutedForegroundColor || 'rgba(255, 255, 255, 0.8)',
     lineHeight: 18,
-    marginBottom: 12,
     flexShrink: 1,
   },
   bidInfo: {
-    marginBottom: 12,
+    marginBottom: 0,
   },
   currentBid: {
     fontSize: TYPOGRAPHY.body,
@@ -264,17 +266,20 @@ const getStyles = (theme: any) => StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'flex-start',
-    paddingHorizontal: 16,
-    paddingVertical: 10,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
     borderRadius: RADIUS.md,
+    minWidth: 0,
+    flexShrink: 1,
   },
   buttonIcon: {
     marginRight: 6,
   },
   auctionButtonText: {
-    fontSize: TYPOGRAPHY.body,
+    fontSize: TYPOGRAPHY.bodySmall,
     fontFamily: theme.semiBoldFont,
     fontWeight: '600',
-    letterSpacing: 0.3,
+    letterSpacing: 0.2,
+    flexShrink: 1,
   },
 })
