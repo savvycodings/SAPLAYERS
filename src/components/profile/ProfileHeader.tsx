@@ -118,12 +118,10 @@ const getStyles = (theme: any) => StyleSheet.create({
     width: '100%',
   },
   headerSection: {
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    backgroundColor: theme.backgroundColor,
     paddingTop: SPACING['4xl'],
     paddingBottom: SPACING.xl,
     paddingHorizontal: SPACING.containerPadding,
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255, 255, 255, 0.08)',
   },
   headerTop: {
     flexDirection: 'row',

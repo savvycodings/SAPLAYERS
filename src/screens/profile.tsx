@@ -438,13 +438,13 @@ export function Profile() {
 const getStyles = (theme: any) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0F0E0E',
+    backgroundColor: theme.backgroundColor,
   },
   scrollContentContainer: {
     paddingBottom: SPACING['4xl'],
   },
   contentWrapper: {
-    backgroundColor: '#0F0E0E',
+    backgroundColor: theme.backgroundColor,
     paddingHorizontal: SPACING.containerPadding,
   },
   placeholderContainer: {

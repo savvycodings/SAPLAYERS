@@ -45,11 +45,9 @@ const darkTheme = {
   textColor: colors.white,
   secondaryTextColor: colors.black,
   mutedForegroundColor: colors.lightWhite,
-  backgroundColor: colors.black,
+  backgroundColor: '#1F1F1F', // Lighter dark background for better depth
   placeholderTextColor: colors.lightWhite,
   laceholderTextColor: colors.lightWhite,
-  secondaryBackgroundColor: colors.white,
-  borderColor: 'rgba(255, 255, 255, .2)',
   tintColor: '#0281ff',
   tintTextColor: colors.white,
   tabBarActiveTintColor: colors.blueTintColor,
@@ -78,7 +76,7 @@ const vercel = {
   ...darkTheme,
   name: 'Vercel',
   label: 'vercel',
-  backgroundColor: colors.black,
+  backgroundColor: '#1F1F1F', // Lighter dark background
   tintColor: '#171717',
   tintTextColor: colors.white,
   tabBarActiveTintColor: colors.white,
@@ -89,7 +87,7 @@ const wizards = {
   ...darkTheme,
   name: 'Wizards',
   label: 'wizards',
-  backgroundColor: colors.black,
+  backgroundColor: '#1F1F1F', // Lighter dark background
   tintColor: '#73EC8B',
   tintTextColor: colors.black,
   tabBarActiveTintColor: '#73EC8B',

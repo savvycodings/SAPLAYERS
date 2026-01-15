@@ -285,7 +285,7 @@ export function SetProducts() {
 const getStyles = (theme: any) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0F0E0E',
+    backgroundColor: theme.backgroundColor,
   },
   scrollContent: {
     paddingHorizontal: SPACING.containerPadding,

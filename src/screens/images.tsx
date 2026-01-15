@@ -290,7 +290,7 @@ export function Images() {
 const getStyles = (theme: any) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0F0E0E',
+    backgroundColor: theme.backgroundColor,
   },
   scrollContentContainer: {
     paddingHorizontal: 10,
@@ -303,7 +303,7 @@ const getStyles = (theme: any) => StyleSheet.create({
     paddingHorizontal: 10,
     paddingTop: 10,
     paddingBottom: 10,
-    backgroundColor: '#0F0E0E',
+    backgroundColor: theme.backgroundColor,
     borderBottomWidth: 1,
     borderBottomColor: theme.borderColor,
   },

@@ -318,7 +318,7 @@ export function ViewProfile() {
 const getStyles = (theme: any) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0F0E0E',
+    backgroundColor: theme.backgroundColor,
   },
   header: {
     flexDirection: 'row',
@@ -326,7 +326,7 @@ const getStyles = (theme: any) => StyleSheet.create({
     paddingHorizontal: SPACING.containerPadding,
     paddingTop: SPACING.lg,
     paddingBottom: SPACING.md,
-    backgroundColor: '#0F0E0E',
+    backgroundColor: theme.backgroundColor,
   },
   backButton: {
     padding: SPACING.sm,

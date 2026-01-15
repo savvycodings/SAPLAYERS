@@ -154,7 +154,7 @@ const getStyles = (theme: any) =>
       bottom: 0,
     },
     modalContainer: {
-      backgroundColor: '#0F0E0E',
+      backgroundColor: theme.backgroundColor,
       borderRadius: RADIUS.lg,
       width: '85%',
       maxWidth: 400,

@@ -129,7 +129,7 @@ const getStyles = (theme: any) => StyleSheet.create({
     justifyContent: 'flex-end',
   },
   modalContainer: {
-    backgroundColor: '#0F0E0E',
+    backgroundColor: theme.backgroundColor,
     borderTopLeftRadius: RADIUS.xl,
     borderTopRightRadius: RADIUS.xl,
     maxHeight: '80%',

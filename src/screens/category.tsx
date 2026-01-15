@@ -103,7 +103,7 @@ export function Category() {
                   <CardContent style={styles.carouselCardContent}>
                     <View style={[
                       styles.carouselItemContainer,
-                      { backgroundColor: categoryType === 'set' ? '#FFFFFF' : '#0F0E0E' }
+                      { backgroundColor: categoryType === 'set' ? '#FFFFFF' : theme.backgroundColor }
                     ]}>
                       <Image
                         source={item.image}
@@ -195,7 +195,7 @@ export function Category() {
 const getStyles = (theme: any) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0F0E0E',
+    backgroundColor: theme.backgroundColor,
   },
   header: {
     flexDirection: 'row',
@@ -203,7 +203,7 @@ const getStyles = (theme: any) => StyleSheet.create({
     paddingHorizontal: SPACING.containerPadding,
     paddingTop: SPACING.lg,
     paddingBottom: SPACING.md,
-    backgroundColor: '#0F0E0E',
+    backgroundColor: theme.backgroundColor,
   },
   backButton: {
     padding: SPACING.sm,

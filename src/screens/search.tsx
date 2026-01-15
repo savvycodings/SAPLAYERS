@@ -739,7 +739,7 @@ export function Search() {
 
 const getStyles = (theme: any) => StyleSheet.create({
   container: {
-    backgroundColor: '#0F0E0E',
+    backgroundColor: theme.backgroundColor,
     flex: 1,
     position: 'relative',
   },
@@ -754,7 +754,7 @@ const getStyles = (theme: any) => StyleSheet.create({
     paddingHorizontal: SPACING.containerPadding,
     paddingTop: SPACING.md,
     paddingBottom: SPACING.md,
-    backgroundColor: '#0F0E0E',
+    backgroundColor: theme.backgroundColor,
     borderBottomWidth: 1,
     borderBottomColor: 'rgba(255, 255, 255, 0.08)',
     position: 'relative',
@@ -852,7 +852,7 @@ const getStyles = (theme: any) => StyleSheet.create({
     flex: 1,
     overflow: 'hidden',
     position: 'relative',
-    backgroundColor: '#0F0E0E',
+    backgroundColor: theme.backgroundColor,
   },
   featuredImage: {
     width: '100%',
