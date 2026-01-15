@@ -127,10 +127,10 @@ const getStyles = (theme: any, columns: number) => StyleSheet.create({
     marginBottom: SPACING.lg,
   },
   card: {
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    backgroundColor: theme.cardBackground || '#000000',
     borderRadius: RADIUS.md,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
+    borderColor: theme.borderColor || 'rgba(255, 255, 255, 0.08)',
     overflow: 'hidden',
   },
   productContent: {
@@ -139,7 +139,7 @@ const getStyles = (theme: any, columns: number) => StyleSheet.create({
   imageContainer: {
     width: '100%',
     aspectRatio: 1,
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: theme.cardBackground || '#000000',
     overflow: 'hidden',
   },
   productImage: {

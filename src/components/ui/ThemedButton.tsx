@@ -60,14 +60,14 @@ const getStyles = (theme: any, variant: string, size: string) => StyleSheet.crea
       backgroundColor: theme.tintColor || '#0281ff',
     }),
     ...(variant === 'secondary' && {
-      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+      backgroundColor: theme.buttonBackground || 'rgba(0, 0, 0, 0.8)',
       borderWidth: 1,
-      borderColor: 'rgba(255, 255, 255, 0.2)',
+      borderColor: theme.borderColor || 'rgba(255, 255, 255, 0.2)',
     }),
     ...(variant === 'outline' && {
       backgroundColor: 'transparent',
       borderWidth: 1,
-      borderColor: 'rgba(255, 255, 255, 0.2)',
+      borderColor: theme.borderColor || 'rgba(255, 255, 255, 0.2)',
     }),
     ...(variant === 'ghost' && {
       backgroundColor: 'transparent',

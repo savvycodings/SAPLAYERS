@@ -49,7 +49,7 @@ export function SellCardsBanner({ onPress }: SellCardsBannerProps) {
 
 const getStyles = (theme: any) => StyleSheet.create({
   banner: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: theme.cardBackground || '#000000',
     borderRadius: RADIUS.lg,
     padding: SPACING.cardPadding,
     marginBottom: SPACING.sectionGap,

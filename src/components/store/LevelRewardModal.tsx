@@ -268,7 +268,7 @@ const getStyles = (theme: any) =>
       marginBottom: SPACING.lg,
       paddingVertical: SPACING.lg,
       paddingHorizontal: SPACING.md,
-      backgroundColor: 'rgba(255, 255, 255, 0.03)',
+      backgroundColor: theme.cardBackground || '#000000',
       borderRadius: RADIUS.lg,
       borderWidth: 1,
       borderColor: 'rgba(255, 255, 255, 0.08)',
@@ -343,7 +343,7 @@ const getStyles = (theme: any) =>
       lineHeight: TYPOGRAPHY.body * 1.4,
     },
     benefitsContainer: {
-      backgroundColor: 'rgba(255, 255, 255, 0.03)',
+      backgroundColor: theme.cardBackground || '#000000',
       borderRadius: RADIUS.lg,
       padding: SPACING.md,
       borderWidth: 1,
@@ -352,7 +352,7 @@ const getStyles = (theme: any) =>
     benefitBlock: {
       flexDirection: 'row',
       alignItems: 'flex-start',
-      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+      backgroundColor: theme.cardBackground || '#000000',
       borderRadius: RADIUS.md,
       padding: SPACING.md,
       marginBottom: SPACING.sm,

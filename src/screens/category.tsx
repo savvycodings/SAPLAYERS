@@ -226,10 +226,10 @@ const getStyles = (theme: any) => StyleSheet.create({
     paddingBottom: SPACING['4xl'],
   },
   carouselCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    backgroundColor: theme.cardBackground || '#000000',
     borderRadius: RADIUS.lg,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
+    borderColor: theme.borderColor || 'rgba(255, 255, 255, 0.08)',
     overflow: 'hidden',
     width: '100%',
     height: '100%',
@@ -264,10 +264,10 @@ const getStyles = (theme: any) => StyleSheet.create({
     marginRight: 0,
   },
   productCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    backgroundColor: theme.cardBackground || '#000000',
     borderRadius: RADIUS.md,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
+    borderColor: theme.borderColor || 'rgba(255, 255, 255, 0.08)',
     overflow: 'hidden',
   },
   productCardContent: {
@@ -285,7 +285,7 @@ const getStyles = (theme: any) => StyleSheet.create({
   },
   productTextContainer: {
     padding: SPACING.sm,
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    backgroundColor: theme.cardBackground || '#000000',
   },
   productCardTitle: {
     fontSize: TYPOGRAPHY.bodySmall,

@@ -326,10 +326,10 @@ const getStyles = (theme: any, tintColor: string) => StyleSheet.create({
     paddingBottom: 100, // Space for bottom action bar
   },
   imageCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    backgroundColor: theme.cardBackground || '#000000',
     borderRadius: RADIUS.lg,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
+    borderColor: theme.borderColor || 'rgba(255, 255, 255, 0.08)',
     marginBottom: SPACING.md,
     overflow: 'hidden',
   },
@@ -358,10 +358,10 @@ const getStyles = (theme: any, tintColor: string) => StyleSheet.create({
     flex: 1,
   },
   thumbnailCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    backgroundColor: theme.cardBackground || '#000000',
     borderRadius: RADIUS.md,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
+    borderColor: theme.borderColor || 'rgba(255, 255, 255, 0.08)',
     overflow: 'hidden',
   },
   thumbnailCardContent: {
@@ -380,10 +380,10 @@ const getStyles = (theme: any, tintColor: string) => StyleSheet.create({
     height: '100%',
   },
   detailsCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    backgroundColor: theme.cardBackground || '#000000',
     borderRadius: RADIUS.lg,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
+    borderColor: theme.borderColor || 'rgba(255, 255, 255, 0.08)',
     marginBottom: SPACING.md,
   },
   detailsContent: {
@@ -481,10 +481,10 @@ const getStyles = (theme: any, tintColor: string) => StyleSheet.create({
     letterSpacing: -0.3,
   },
   aboutCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    backgroundColor: theme.cardBackground || '#000000',
     borderRadius: RADIUS.lg,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
+    borderColor: theme.borderColor || 'rgba(255, 255, 255, 0.08)',
     marginBottom: SPACING.md,
   },
   aboutContent: {
@@ -517,10 +517,10 @@ const getStyles = (theme: any, tintColor: string) => StyleSheet.create({
     lineHeight: 22,
   },
   bidsCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    backgroundColor: theme.cardBackground || '#000000',
     borderRadius: RADIUS.lg,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
+    borderColor: theme.borderColor || 'rgba(255, 255, 255, 0.08)',
     marginBottom: SPACING.md,
   },
   bidsContent: {
@@ -586,14 +586,14 @@ const getStyles = (theme: any, tintColor: string) => StyleSheet.create({
   },
   bidNowButton: {
     flex: 1,
-    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    backgroundColor: theme.buttonBackground || 'rgba(0, 0, 0, 0.8)',
     borderRadius: RADIUS.md,
     paddingVertical: SPACING.md,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
+    borderColor: theme.borderColor || 'rgba(255, 255, 255, 0.1)',
     gap: SPACING.xs,
   },
   bidIcon: {

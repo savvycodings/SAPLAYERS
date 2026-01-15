@@ -143,7 +143,7 @@ const getStyles = (theme: any) => StyleSheet.create({
     letterSpacing: -0.2,
   },
   premiumBadge: {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    backgroundColor: theme.buttonBackground || 'rgba(0, 0, 0, 0.8)',
     paddingHorizontal: SPACING.sm,
     paddingVertical: SPACING.xs / 2,
     borderRadius: RADIUS.sm,

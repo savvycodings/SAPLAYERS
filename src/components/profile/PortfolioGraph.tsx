@@ -144,7 +144,7 @@ export function PortfolioGraph({
 
 const getStyles = (theme: any) => StyleSheet.create({
   card: {
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    backgroundColor: theme.cardBackground || '#000000',
     borderRadius: RADIUS.lg,
     borderWidth: 1,
     borderColor: 'rgba(255, 255, 255, 0.08)',

@@ -180,7 +180,7 @@ const getStyles = (theme: any) => StyleSheet.create({
   searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: theme.cardBackground || '#000000',
     borderRadius: RADIUS.full,
     paddingHorizontal: SPACING.md,
     paddingVertical: SPACING.sm,

@@ -121,7 +121,7 @@ const getStyles = (theme: any) => StyleSheet.create({
   listingCard: {
     width: '48%',
     aspectRatio: 0.75,
-    backgroundColor: 'rgba(20, 20, 20, 0.9)',
+    backgroundColor: theme.cardBackground || '#000000',
     borderRadius: RADIUS.lg,
     marginBottom: SPACING.md,
     overflow: 'hidden',
@@ -153,7 +153,7 @@ const getStyles = (theme: any) => StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: theme.cardBackground || '#000000',
     position: 'relative',
   },
   listingTextOverlay: {

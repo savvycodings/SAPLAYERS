@@ -122,10 +122,10 @@ const getStyles = (theme: any) => StyleSheet.create({
     marginBottom: SPACING.lg,
   },
   card: {
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    backgroundColor: theme.cardBackground || '#000000',
     borderRadius: RADIUS.md,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
+    borderColor: theme.borderColor || 'rgba(255, 255, 255, 0.08)',
     overflow: 'hidden',
   },
   cardContent: {
@@ -202,7 +202,7 @@ const getStyles = (theme: any) => StyleSheet.create({
     fontWeight: '600',
   },
   bidButton: {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    backgroundColor: theme.buttonBackground || 'rgba(0, 0, 0, 0.8)',
     paddingVertical: SPACING.xs,
     paddingHorizontal: SPACING.sm,
     borderRadius: RADIUS.sm,

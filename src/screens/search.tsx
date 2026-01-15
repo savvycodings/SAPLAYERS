@@ -764,7 +764,7 @@ const getStyles = (theme: any) => StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: theme.cardBackground || '#000000',
     borderRadius: RADIUS.full,
     paddingHorizontal: SPACING.md,
     paddingVertical: SPACING.sm,
@@ -818,7 +818,7 @@ const getStyles = (theme: any) => StyleSheet.create({
     justifyContent: 'flex-start',
   },
   carouselCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    backgroundColor: theme.cardBackground || '#000000',
     borderRadius: RADIUS.lg,
     borderWidth: 1,
     borderColor: 'rgba(255, 255, 255, 0.08)',
@@ -1016,7 +1016,7 @@ const getStyles = (theme: any) => StyleSheet.create({
     marginBottom: SPACING.lg,
   },
   expandedCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    backgroundColor: theme.cardBackground || '#000000',
     borderRadius: RADIUS.lg,
     borderWidth: 1,
     borderColor: 'rgba(255, 255, 255, 0.08)',

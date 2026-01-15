@@ -149,7 +149,7 @@ const getStyles = (theme: any) => StyleSheet.create({
     paddingVertical: SPACING.sm,
     paddingHorizontal: SPACING.md,
     borderRadius: RADIUS.md,
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    backgroundColor: theme.cardBackground || '#000000',
     borderWidth: 1,
     borderColor: theme.borderColor || 'rgba(255, 255, 255, 0.08)',
   },

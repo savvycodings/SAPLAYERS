@@ -137,7 +137,7 @@ const getStyles = (theme: any) => StyleSheet.create({
     marginBottom: SPACING.md,
   },
   card: {
-    backgroundColor: 'rgba(255, 255, 255, 0.03)',
+    backgroundColor: theme.cardBackground || '#000000',
     borderRadius: RADIUS.lg,
     borderWidth: 1,
     borderColor: 'rgba(255, 255, 255, 0.08)',
@@ -153,7 +153,7 @@ const getStyles = (theme: any) => StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: RADIUS.md,
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: theme.cardBackground || '#000000',
     overflow: 'hidden',
     marginRight: SPACING.md,
   },

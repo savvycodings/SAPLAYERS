@@ -46,7 +46,7 @@ const getStyles = (theme: any, enabled: boolean) => StyleSheet.create({
     alignItems: 'center',
     padding: SPACING.cardPadding,
     borderRadius: RADIUS.md,
-    backgroundColor: enabled ? `${STORE_COLORS.vaulted}15` : 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: enabled ? `${STORE_COLORS.vaulted}15` : (theme.cardBackground || '#000000'),
     borderWidth: 1,
     borderColor: enabled ? `${STORE_COLORS.vaulted}40` : 'rgba(255, 255, 255, 0.1)',
     marginBottom: SPACING.md,

@@ -193,7 +193,7 @@ const getStyles = (theme: any) =>
       height: 120,
       borderRadius: RADIUS.md,
       marginBottom: SPACING.md,
-      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+      backgroundColor: theme.cardBackground || '#000000',
     },
     productName: {
       fontSize: TYPOGRAPHY.body,
@@ -215,7 +215,7 @@ const getStyles = (theme: any) =>
     priceInputContainer: {
       flexDirection: 'row',
       alignItems: 'center',
-      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+      backgroundColor: theme.cardBackground || '#000000',
       borderRadius: RADIUS.md,
       borderWidth: 1,
       borderColor: 'rgba(255, 255, 255, 0.1)',
@@ -244,7 +244,7 @@ const getStyles = (theme: any) =>
       fontWeight: '600',
     },
     descriptionInput: {
-      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+      backgroundColor: theme.cardBackground || '#000000',
       borderRadius: RADIUS.md,
       borderWidth: 1,
       borderColor: 'rgba(255, 255, 255, 0.1)',

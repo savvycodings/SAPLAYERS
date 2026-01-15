@@ -46,6 +46,9 @@ const darkTheme = {
   secondaryTextColor: colors.black,
   mutedForegroundColor: colors.lightWhite,
   backgroundColor: '#1F1F1F', // Lighter dark background for better depth
+  cardBackground: '#000000', // Solid black cards for contrast
+  buttonBackground: 'rgba(0, 0, 0, 0)', // Dark button backgrounds
+  borderColor: 'rgba(255, 255, 255, 0.08)', // Card borders
   placeholderTextColor: colors.lightWhite,
   laceholderTextColor: colors.lightWhite,
   tintColor: '#0281ff',
@@ -67,6 +70,8 @@ const miami = {
   name: 'Miami',
   label: 'miami',
   backgroundColor: '#231F20',
+  cardBackground: '#000000', // Solid black cards for contrast
+  buttonBackground: '#000000', // Blackout button backgrounds
   tintColor: colors.lightPink,
   tintTextColor: '#231F20',
   tabBarActiveTintColor: colors.lightPink
@@ -77,6 +82,8 @@ const vercel = {
   name: 'Vercel',
   label: 'vercel',
   backgroundColor: '#1F1F1F', // Lighter dark background
+  cardBackground: '#000000', // Solid black cards for contrast
+  buttonBackground: 'rgba(0, 0, 0, 0.8)', // Dark button backgrounds
   tintColor: '#171717',
   tintTextColor: colors.white,
   tabBarActiveTintColor: colors.white,
@@ -87,7 +94,9 @@ const wizards = {
   ...darkTheme,
   name: 'Wizards',
   label: 'wizards',
-  backgroundColor: '#1F1F1F', // Lighter dark background
+  backgroundColor: '#000000', // Lighter dark background
+  cardBackground: '#000000', // Solid black cards for contrast
+  buttonBackground: '#000000)', // Dark button backgrounds
   tintColor: '#73EC8B',
   tintTextColor: colors.black,
   tabBarActiveTintColor: '#73EC8B',

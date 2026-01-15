@@ -122,7 +122,7 @@ const getStyles = (theme: any) => StyleSheet.create({
   bannerUpload: {
     height: 120,
     borderRadius: RADIUS.md,
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: theme.cardBackground || '#000000',
     borderWidth: 1,
     borderColor: 'rgba(255, 255, 255, 0.1)',
     borderStyle: 'dashed',

@@ -104,7 +104,7 @@ const getStyles = (theme: any) => StyleSheet.create({
   verticalBar: {
     width: 8,
     height: 60,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    backgroundColor: theme.buttonBackground || 'rgba(0, 0, 0, 0.8)',
     borderRadius: RADIUS.sm,
     overflow: 'hidden',
   },
@@ -126,7 +126,7 @@ const getStyles = (theme: any) => StyleSheet.create({
   },
   horizontalBar: {
     height: 8,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    backgroundColor: theme.buttonBackground || 'rgba(0, 0, 0, 0.8)',
     borderRadius: RADIUS.sm,
     overflow: 'hidden',
     marginBottom: SPACING.xs,

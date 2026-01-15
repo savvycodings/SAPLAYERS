@@ -161,7 +161,7 @@ const getStyles = (theme: any) => StyleSheet.create({
     fontWeight: '600',
   },
   priceInfo: {
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: theme.cardBackground || '#000000',
     borderRadius: RADIUS.md,
     padding: SPACING.md,
     marginBottom: SPACING.lg,

@@ -32,17 +32,15 @@ export function ThemedCard({
 
 const getStyles = (theme: any, variant: string) => StyleSheet.create({
   card: {
-    backgroundColor: variant === 'elevated' 
-      ? 'rgba(255, 255, 255, 0.05)' 
-      : 'rgba(255, 255, 255, 0.03)',
+    backgroundColor: theme.cardBackground || '#000000', // Solid black cards for contrast
     borderRadius: RADIUS.md,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.08)',
+    borderColor: theme.borderColor || 'rgba(255, 255, 255, 0.08)',
     overflow: 'hidden',
     ...(variant === 'elevated' && {
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.1,
+      shadowOpacity: 0.3,
       shadowRadius: 4,
       elevation: 3,
     }),
