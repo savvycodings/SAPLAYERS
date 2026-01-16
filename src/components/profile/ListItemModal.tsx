@@ -1,5 +1,5 @@
 import { View, StyleSheet, Modal, TouchableOpacity, ScrollView, TextInput, Image } from 'react-native'
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { Text } from '../ui/text'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { ThemeContext } from '../../context'
@@ -11,6 +11,8 @@ interface ListItemModalProps {
   productImage?: any
   onClose: () => void
   onList: (price: number) => void
+  initialPrice?: number
+  initialDescription?: string
 }
 
 export function ListItemModal({
@@ -19,11 +21,31 @@ export function ListItemModal({
   productImage,
   onClose,
   onList,
+  initialPrice,
+  initialDescription,
 }: ListItemModalProps) {
   const { theme } = useContext(ThemeContext)
   const styles = getStyles(theme)
   const [price, setPrice] = useState('')
   const [description, setDescription] = useState('')
+
+  // Update fields when modal opens with initial values (for editing)
+  useEffect(() => {
+    if (visible) {
+      if (initialPrice !== undefined) {
+        setPrice(initialPrice.toString())
+      } else {
+        setPrice('')
+      }
+      if (initialDescription) {
+        setDescription(initialDescription)
+      } else {
+        setDescription('')
+      }
+    }
+  }, [visible, initialPrice, initialDescription])
+
+  const isEditing = initialPrice !== undefined
 
   const isValid = () => {
     const numericPrice = parseFloat(price.replace(/[^0-9.]/g, ''))
@@ -62,7 +84,7 @@ export function ListItemModal({
         <View style={styles.modalContainer}>
           {/* Header */}
           <View style={styles.header}>
-            <Text style={styles.title}>List Your Item</Text>
+            <Text style={styles.title}>{isEditing ? 'Edit Listing' : 'List Your Item'}</Text>
             <TouchableOpacity onPress={handleClose} style={styles.closeButton}>
               <Ionicons name="close" size={24} color={theme.textColor} />
             </TouchableOpacity>
@@ -129,7 +151,7 @@ export function ListItemModal({
               activeOpacity={0.8}
               disabled={!isValid()}
             >
-              <Text style={styles.listButtonText}>List Item</Text>
+              <Text style={styles.listButtonText}>{isEditing ? 'Save Changes' : 'List Item'}</Text>
             </TouchableOpacity>
           </ScrollView>
         </View>

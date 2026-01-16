@@ -20,6 +20,8 @@ interface StoreListingsProps {
   onListingPress?: (listing: StoreListing) => void
   onBuyPress?: (listing: StoreListing) => void
   onBidPress?: (listing: StoreListing) => void
+  isOwnListing?: boolean
+  onEditPress?: (listing: StoreListing) => void
 }
 
 export function StoreListings({
@@ -27,6 +29,8 @@ export function StoreListings({
   onListingPress,
   onBuyPress,
   onBidPress,
+  isOwnListing = false,
+  onEditPress,
 }: StoreListingsProps) {
   const styles = getStyles()
 
@@ -39,6 +43,8 @@ export function StoreListings({
           onPress={() => onListingPress?.(listing)}
           onBuyPress={() => onBuyPress?.(listing)}
           onBidPress={() => onBidPress?.(listing)}
+          isOwnListing={isOwnListing}
+          onEditPress={() => onEditPress?.(listing)}
         />
       ))}
     </View>

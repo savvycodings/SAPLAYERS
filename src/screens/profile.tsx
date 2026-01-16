@@ -6,7 +6,7 @@ import { Text } from '../components/ui/text'
 import { ThemeContext } from '../context'
 import { SPACING, TYPOGRAPHY } from '../constants/layout'
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { ProfileHeader, ProfileTabs, SellCardsBanner, ProfileStats, PortfolioGraph, ActionButtons, ProductGrid, GoalProgress, SetChart, ListItemModal, OrderCard, type Order, AuctionSection, CreateAuctionModal, type Auction } from '../components/profile'
+import { ProfileHeader, ProfileTabs, ProfileStats, PortfolioGraph, ActionButtons, ProductGrid, GoalProgress, SetChart, ListItemModal, OrderCard, type Order, AuctionSection, CreateAuctionModal, type Auction } from '../components/profile'
 import { Section } from '../components/layout/Section'
 import {
   StoreHeader,
@@ -40,6 +40,7 @@ export function Profile() {
   const [selectedProduct, setSelectedProduct] = useState<{ name: string; image?: any } | null>(null)
   const [isCreateAuctionModalVisible, setIsCreateAuctionModalVisible] = useState(false)
   const [auctions, setAuctions] = useState<Auction[]>([])
+  const [editingListing, setEditingListing] = useState<StoreListing | null>(null)
 
   // Sample orders data
   const orders: Order[] = [
@@ -212,12 +213,6 @@ export function Profile() {
 
           {activeTab === 'STATS' && (
             <>
-              <SellCardsBanner
-                onPress={() => {
-                  // TODO: Navigate to sell cards page
-                }}
-              />
-
               <Section title="Auctions">
                 <AuctionSection
                   auctions={auctions}
@@ -230,29 +225,13 @@ export function Profile() {
                 />
               </Section>
 
-              <Section title="Portfolio Growth">
-                <PortfolioGraph
-                  data={[
-                    { x: 0, y: 45 },
-                    { x: 1, y: 52 },
-                    { x: 2, y: 48 },
-                    { x: 3, y: 55 },
-                    { x: 4, y: 62 },
-                    { x: 5, y: 58 },
-                    { x: 6, y: 67 },
-                  ]}
-                />
-              </Section>
-
-              <ActionButtons
-                buttons={[
-                  { label: 'Movers', icon: 'add', onPress: () => {} },
-                  { label: 'PORTFOLIO', icon: 'add', onPress: () => {} },
-                  { label: 'Export', icon: 'add', onPress: () => {} },
-                ]}
-              />
-
-              <Section title="Your Products">
+              <Section 
+                title="Your Products"
+                showSeeAll={true}
+                onSeeAllPress={() => {
+                  // TODO: Navigate to all products page
+                }}
+              >
                 <ProductGrid
                   products={[
                     {
@@ -296,6 +275,27 @@ export function Profile() {
                     setSelectedProduct({ name: product.name, image: product.image })
                     setIsListItemModalVisible(true)
                   }}
+                />
+              </Section>
+
+              <Section title="Portfolio Growth">
+                <PortfolioGraph
+                  data={[
+                    { x: 0, y: 45 },
+                    { x: 1, y: 52 },
+                    { x: 2, y: 48 },
+                    { x: 3, y: 55 },
+                    { x: 4, y: 62 },
+                    { x: 5, y: 58 },
+                    { x: 6, y: 67 },
+                  ]}
+                />
+                <ActionButtons
+                  buttons={[
+                    { label: 'Movers', icon: 'add', onPress: () => {} },
+                    { label: 'PORTFOLIO', icon: 'add', onPress: () => {} },
+                    { label: 'Export', icon: 'add', onPress: () => {} },
+                  ]}
                 />
               </Section>
 
@@ -355,6 +355,7 @@ export function Profile() {
               <Section title="My Listings">
                 <StoreListings
                   listings={filteredListings}
+                  isOwnListing={true}
                   onListingPress={(listing: StoreListing) => {
                     if (listing.cardImage) {
                       navigation.navigate('Product', {
@@ -366,11 +367,20 @@ export function Profile() {
                       })
                     }
                   }}
+                  onEditPress={(listing: StoreListing) => {
+                    // Open edit modal with listing data
+                    setEditingListing(listing)
+                    setSelectedProduct({ 
+                      name: listing.cardName, 
+                      image: listing.cardImage || null 
+                    })
+                    setIsListItemModalVisible(true)
+                  }}
                   onBuyPress={(listing) => {
-                    // TODO: Handle instant buy
+                    // Not used for own listings
                   }}
                   onBidPress={(listing) => {
-                    // TODO: Open bid modal
+                    // Not used for own listings
                   }}
                 />
               </Section>
@@ -433,15 +443,24 @@ export function Profile() {
           visible={isListItemModalVisible}
           productName={selectedProduct.name}
           productImage={selectedProduct.image}
+          initialPrice={editingListing?.price}
+          initialDescription={editingListing ? `Premium ${editingListing.cardName}. Authentic and verified with secure shipping.` : undefined}
           onClose={() => {
             setIsListItemModalVisible(false)
             setSelectedProduct(null)
+            setEditingListing(null)
           }}
           onList={(price) => {
-            // TODO: Handle listing the item with the price
-            console.log('List item:', selectedProduct.name, 'at price:', price)
+            if (editingListing) {
+              // TODO: Handle updating the listing with the new price
+              console.log('Update listing:', editingListing.cardName, 'new price:', price)
+            } else {
+              // TODO: Handle creating a new listing with the price
+              console.log('List item:', selectedProduct.name, 'at price:', price)
+            }
             setIsListItemModalVisible(false)
             setSelectedProduct(null)
+            setEditingListing(null)
           }}
         />
       )}

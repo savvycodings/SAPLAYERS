@@ -22,6 +22,8 @@ interface ListingCardProps {
   onPress?: () => void
   onBuyPress?: () => void
   onBidPress?: () => void
+  isOwnListing?: boolean
+  onEditPress?: () => void
 }
 
 export function ListingCard({
@@ -35,6 +37,8 @@ export function ListingCard({
   onPress,
   onBuyPress,
   onBidPress,
+  isOwnListing = false,
+  onEditPress,
 }: ListingCardProps) {
   const { theme } = useContext(ThemeContext)
   const styles = getStyles(theme)
@@ -91,23 +95,42 @@ export function ListingCard({
 
             {/* Action Buttons */}
             <View style={styles.actionsContainer}>
-              {purchaseType === 'instant' || purchaseType === 'both' ? (
+              {isOwnListing ? (
+                // Show Edit button for own listings
                 <TouchableOpacity
-                  style={styles.buyButton}
-                  onPress={onBuyPress}
+                  style={styles.editButton}
+                  onPress={onEditPress}
                   activeOpacity={0.7}
                 >
-                  <Text style={styles.buyButtonText}>Buy Now ${price}</Text>
+                  <Ionicons
+                    name="pencil-outline"
+                    size={14}
+                    color={theme.tintTextColor || '#000000'}
+                    style={styles.editIcon}
+                  />
+                  <Text style={styles.editButtonText}>Edit</Text>
                 </TouchableOpacity>
-              ) : null}
-              {/* Always show bid button - everything is biddable */}
-              <TouchableOpacity
-                style={styles.bidButton}
-                onPress={onBidPress}
-                activeOpacity={0.7}
-              >
-                <Text style={styles.bidButtonText}>Bid</Text>
-              </TouchableOpacity>
+              ) : (
+                // Show Buy/Bid buttons for other users' listings
+                <>
+                  {purchaseType === 'instant' || purchaseType === 'both' ? (
+                    <TouchableOpacity
+                      style={styles.buyButton}
+                      onPress={onBuyPress}
+                      activeOpacity={0.7}
+                    >
+                      <Text style={styles.buyButtonText}>Buy Now ${price}</Text>
+                    </TouchableOpacity>
+                  ) : null}
+                  <TouchableOpacity
+                    style={styles.bidButton}
+                    onPress={onBidPress}
+                    activeOpacity={0.7}
+                  >
+                    <Text style={styles.bidButtonText}>Bid</Text>
+                  </TouchableOpacity>
+                </>
+              )}
             </View>
           </View>
         </CardContent>
@@ -214,6 +237,25 @@ const getStyles = (theme: any) => StyleSheet.create({
     fontSize: TYPOGRAPHY.caption,
     fontFamily: theme.semiBoldFont,
     color: theme.textColor,
+    fontWeight: '600',
+  },
+  editButton: {
+    backgroundColor: theme.tintColor || '#73EC8B',
+    paddingVertical: SPACING.xs,
+    paddingHorizontal: SPACING.sm,
+    borderRadius: RADIUS.sm,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 4,
+  },
+  editIcon: {
+    marginRight: 2,
+  },
+  editButtonText: {
+    fontSize: TYPOGRAPHY.caption,
+    fontFamily: theme.semiBoldFont,
+    color: theme.tintTextColor || '#000000',
     fontWeight: '600',
   },
 })
