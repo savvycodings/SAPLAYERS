@@ -11,12 +11,11 @@ export function VaultingSection() {
 
   return (
     <View style={styles.vaultingCard}>
-      <View style={styles.vaultingTopContent}>
-        <Text style={styles.vaultingLabel}>VAULTING</Text>
-        <Text style={styles.vaultingTitle}>Get Your Cards Vaulted & Professionally Graded</Text>
-      </View>
-      <View style={styles.vaultingBottomContent}>
+      <View style={styles.vaultingContent}>
         <View style={styles.vaultingLeftContent}>
+          <Text style={styles.vaultingLabel}>VAULTING</Text>
+          <Text style={styles.vaultingTitle}>Get Your Cards Vaulted</Text>
+          <Text style={styles.vaultingTitle}>and Professionally Graded</Text>
           <Text style={styles.vaultingDescription}>
             Secure storage for your valuable cards in a climate controlled facility. Get your cards professionally graded and authenticated by industry experts before vaulting. We can sell them for you when you're ready.
           </Text>
@@ -51,50 +50,45 @@ const getStyles = (theme: any) => StyleSheet.create({
     borderRadius: RADIUS.lg,
     overflow: 'hidden',
     padding: SPACING.cardPadding,
-    justifyContent: 'space-between',
     borderWidth: 1,
-    borderColor: theme.borderColor || 'rgba(255, 255, 255, 0.1)',
+    borderColor: 'rgba(255, 255, 255, 0.3)',
     backgroundColor: theme.cardBackground || '#000000',
     minHeight: 200,
   },
-  vaultingTopContent: {
-    width: '100%',
-    marginBottom: 12,
+  vaultingContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: SPACING.lg,
+  },
+  vaultingLeftContent: {
+    flex: 1,
+    paddingRight: SPACING.lg,
+    justifyContent: 'center',
   },
   vaultingLabel: {
     fontSize: TYPOGRAPHY.caption,
     fontFamily: theme.regularFont,
-    color: theme.mutedForegroundColor || 'rgba(255, 255, 255, 0.8)',
+    color: theme.mutedForegroundColor || 'rgba(255, 255, 255, 0.7)',
     letterSpacing: 1.5,
     textTransform: 'uppercase',
-    marginBottom: 6,
+    marginBottom: SPACING.xs,
   },
   vaultingTitle: {
-    fontSize: TYPOGRAPHY.h3,
+    fontSize: TYPOGRAPHY.h2,
     fontFamily: theme.boldFont,
     color: theme.textColor,
-    fontWeight: '600',
-    lineHeight: 24,
-    letterSpacing: -0.2,
-    width: '100%',
-  },
-  vaultingBottomContent: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: SPACING.md,
-  },
-  vaultingLeftContent: {
-    flex: 1,
-    width: '50%',
-    paddingRight: SPACING.sm,
-    justifyContent: 'space-between',
+    fontWeight: '700',
+    lineHeight: 32,
+    letterSpacing: -0.5,
+    marginBottom: SPACING.xs,
   },
   vaultingDescription: {
-    fontSize: TYPOGRAPHY.bodySmall,
+    fontSize: TYPOGRAPHY.body,
     fontFamily: theme.regularFont,
     color: theme.mutedForegroundColor || 'rgba(255, 255, 255, 0.8)',
-    lineHeight: 18,
-    marginBottom: 12,
+    lineHeight: 22,
+    marginTop: SPACING.md,
+    marginBottom: SPACING.lg,
     flexShrink: 1,
   },
   vaultingButton: {
@@ -119,15 +113,14 @@ const getStyles = (theme: any) => StyleSheet.create({
     letterSpacing: 0.3,
   },
   vaultingRightContent: {
-    flex: 1,
-    width: '50%',
+    width: 180,
+    height: 180,
     justifyContent: 'center',
     alignItems: 'center',
-    height: 160,
   },
   vaultingImage: {
     width: '100%',
-    height: 160,
+    height: '100%',
     borderRadius: RADIUS.md,
   },
 })
