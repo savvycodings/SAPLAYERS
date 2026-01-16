@@ -272,7 +272,24 @@ export function Profile() {
                     },
                   ]}
                   onProductPress={(product) => {
-                    setSelectedProduct({ name: product.name, image: product.image })
+                    // Navigate to Product screen (full screen with back arrow and heart)
+                    if (product.image) {
+                      const price = parseFloat(product.price.replace(/[^0-9.]/g, '')) || 0
+                      navigation.navigate('Product', {
+                        name: product.name,
+                        image: product.image,
+                        category: 'product',
+                        price: price,
+                        description: `Premium ${product.name}. Authentic and verified with secure shipping.`,
+                      })
+                    }
+                  }}
+                  onQuickListPress={(product) => {
+                    // Open list item modal to add listing
+                    setSelectedProduct({ 
+                      name: product.name, 
+                      image: product.image 
+                    })
                     setIsListItemModalVisible(true)
                   }}
                 />

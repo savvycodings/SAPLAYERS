@@ -33,9 +33,10 @@ interface ProductGridProps {
   products: Product[]
   columns?: number
   onProductPress?: (product: Product) => void
+  onQuickListPress?: (product: Product) => void
 }
 
-export function ProductGrid({ products, columns = 3, onProductPress }: ProductGridProps) {
+export function ProductGrid({ products, columns = 3, onProductPress, onQuickListPress }: ProductGridProps) {
   const { theme } = useContext(ThemeContext)
   const navigation = useNavigation<ProductGridNavigationProp>()
   const styles = getStyles(theme, columns)
@@ -48,6 +49,15 @@ export function ProductGrid({ products, columns = 3, onProductPress }: ProductGr
   const handleProductPress = (product: Product) => {
     if (onProductPress) {
       onProductPress(product)
+    } else if (product.image) {
+      const price = parsePrice(product.price)
+      navigation.navigate('Product', {
+        name: product.name,
+        image: product.image,
+        category: 'product',
+        price: price,
+        description: `Premium ${product.name}. Authentic and verified with secure shipping.`,
+      })
     }
   }
 
@@ -57,18 +67,7 @@ export function ProductGrid({ products, columns = 3, onProductPress }: ProductGr
         return (
           <View key={product.id} style={styles.productCard}>
             <TouchableOpacity
-              onPress={() => {
-                if (!onProductPress && product.image) {
-                  const price = parsePrice(product.price)
-                  navigation.navigate('Product', {
-                    name: product.name,
-                    image: product.image,
-                    category: 'product',
-                    price: price,
-                    description: `Premium ${product.name}. Authentic and verified with secure shipping.`,
-                  })
-                }
-              }}
+              onPress={() => handleProductPress(product)}
               activeOpacity={0.8}
             >
               <Card style={styles.card}>
@@ -99,10 +98,10 @@ export function ProductGrid({ products, columns = 3, onProductPress }: ProductGr
                 </CardContent>
               </Card>
             </TouchableOpacity>
-            {onProductPress && (
+            {onQuickListPress && (
               <TouchableOpacity
                 style={styles.quickListButton}
-                onPress={() => handleProductPress(product)}
+                onPress={() => onQuickListPress(product)}
                 activeOpacity={0.8}
               >
                 <Text style={styles.quickListButtonText}>Quick List</Text>
