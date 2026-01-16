@@ -378,9 +378,7 @@ export function Shop() {
           />
         </Section>
 
-        <Section title="Vaulting Service">
-          <VaultingSection />
-        </Section>
+        <VaultingSection />
 
         <Section title="Blog" showSeeAll onSeeAllPress={() => {}}>
           <BlogCarousel items={blogItems} />
