@@ -11,35 +11,40 @@ export function VaultingSection() {
 
   return (
     <View style={styles.vaultingCard}>
-      <View style={styles.vaultingContent}>
-        <View style={styles.vaultingLeftContent}>
-          <Text style={styles.vaultingLabel}>VAULTING</Text>
-          <Text style={styles.vaultingTitle}>Get Your Cards Vaulted</Text>
-          <Text style={styles.vaultingTitle}>and Professionally Graded</Text>
-          <Text style={styles.vaultingDescription}>
-            Secure storage for your valuable cards in a climate controlled facility. Get your cards professionally graded and authenticated by industry experts before vaulting. We can sell them for you when you're ready.
-          </Text>
-          <TouchableOpacity
-            style={styles.vaultingButton}
-            activeOpacity={0.7}
-          >
-            <Ionicons
-              name="shield-checkmark-outline"
-              size={16}
-              color="#FFFFFF"
-              style={styles.shieldIcon}
-            />
-            <Text style={styles.vaultingButtonText}>Apply Today</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.vaultingRightContent}>
-          <Image
-            source={require('../../../assets/banner/slabs.png')}
-            style={styles.vaultingImage}
-            resizeMode="cover"
-          />
-        </View>
+      {/* Title */}
+      <View style={styles.vaultingTopContent}>
+        <Text style={styles.vaultingLabel}>VAULTING</Text>
+        <Text style={styles.vaultingTitle}>Get Your Cards Vaulted</Text>
+        <Text style={styles.vaultingTitle}>and Professionally Graded</Text>
       </View>
+
+      {/* Image */}
+      <View style={styles.vaultingImageContainer}>
+        <Image
+          source={require('../../../assets/banner/slabs.png')}
+          style={styles.vaultingImage}
+          resizeMode="cover"
+        />
+      </View>
+
+      {/* Description */}
+      <Text style={styles.vaultingDescription}>
+        Secure storage for your valuable cards in a climate controlled facility. Get your cards professionally graded and authenticated by industry experts before vaulting. We can sell them for you when you're ready.
+      </Text>
+
+      {/* Button */}
+      <TouchableOpacity
+        style={styles.vaultingButton}
+        activeOpacity={0.7}
+      >
+        <Ionicons
+          name="shield-checkmark-outline"
+          size={18}
+          color="#000000"
+          style={styles.shieldIcon}
+        />
+        <Text style={styles.vaultingButtonText}>Apply to Vault Today</Text>
+      </TouchableOpacity>
     </View>
   )
 }
@@ -51,19 +56,12 @@ const getStyles = (theme: any) => StyleSheet.create({
     overflow: 'hidden',
     padding: SPACING.cardPadding,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.3)',
+    borderColor: theme.borderColor || 'rgba(255, 255, 255, 0.08)',
     backgroundColor: theme.cardBackground || '#000000',
-    minHeight: 200,
   },
-  vaultingContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: SPACING.lg,
-  },
-  vaultingLeftContent: {
-    flex: 1,
-    paddingRight: SPACING.lg,
-    justifyContent: 'center',
+  vaultingTopContent: {
+    width: '100%',
+    marginBottom: SPACING.md,
   },
   vaultingLabel: {
     fontSize: TYPOGRAPHY.caption,
@@ -80,47 +78,45 @@ const getStyles = (theme: any) => StyleSheet.create({
     fontWeight: '700',
     lineHeight: 32,
     letterSpacing: -0.5,
-    marginBottom: SPACING.xs,
+    marginBottom: 0,
+  },
+  vaultingImageContainer: {
+    width: '100%',
+    marginBottom: SPACING.md,
+    borderRadius: RADIUS.md,
+    overflow: 'hidden',
+  },
+  vaultingImage: {
+    width: '100%',
+    height: 240,
   },
   vaultingDescription: {
     fontSize: TYPOGRAPHY.body,
     fontFamily: theme.regularFont,
     color: theme.mutedForegroundColor || 'rgba(255, 255, 255, 0.8)',
     lineHeight: 22,
-    marginTop: SPACING.md,
     marginBottom: SPACING.lg,
-    flexShrink: 1,
   },
   vaultingButton: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     alignSelf: 'flex-start',
     paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingVertical: 12,
     borderRadius: RADIUS.lg,
     backgroundColor: theme.tintColor || '#73EC8B',
     borderWidth: 1,
     borderColor: theme.tintColor || '#73EC8B',
   },
   shieldIcon: {
-    marginRight: 6,
+    marginRight: 8,
   },
   vaultingButtonText: {
     fontSize: TYPOGRAPHY.body,
     fontFamily: theme.semiBoldFont,
-    color: theme.tintTextColor || '#000000',
+    color: '#000000',
     fontWeight: '600',
     letterSpacing: 0.3,
-  },
-  vaultingRightContent: {
-    width: 180,
-    height: 180,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  vaultingImage: {
-    width: '100%',
-    height: '100%',
-    borderRadius: RADIUS.md,
   },
 })
