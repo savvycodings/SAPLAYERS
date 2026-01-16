@@ -1,110 +1,65 @@
 import { View, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import { useContext } from 'react'
 import { Text } from '../ui/text'
-import { Carousel } from '../Carousel'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { ThemeContext } from '../../context'
 import { SPACING, TYPOGRAPHY, RADIUS } from '../../constants/layout'
-
-interface VaultingItem {
-  title: string
-  description: string
-  buttonText: string
-  image?: any
-  backgroundColor?: string
-}
 
 export function VaultingSection() {
   const { theme } = useContext(ThemeContext)
   const styles = getStyles(theme)
 
-  const vaultingItems: VaultingItem[] = [
-    {
-      title: 'Get Your Card Vaulted Today',
-      description: 'Secure storage for your valuable cards in a climate controlled facility. We can sell them for you when you\'re ready.',
-      buttonText: 'Apply Today',
-      backgroundColor: '#DC2626',
-    },
-    {
-      title: 'Professional Authentication',
-      description: 'Get your cards professionally graded and authenticated by industry experts before vaulting.',
-      buttonText: 'Learn More',
-      backgroundColor: '#1A1A1A',
-    },
-  ]
-
   return (
-    <Carousel
-      items={vaultingItems}
-      renderItem={(item) => (
-        <View style={[styles.vaultingCard, { backgroundColor: item.backgroundColor || '#DC2626' }]}>
-          {item.image && (
-            <Image
-              source={item.image}
-              style={styles.vaultingBackgroundImage}
-              resizeMode="cover"
+    <View style={styles.vaultingCard}>
+      <View style={styles.vaultingTopContent}>
+        <Text style={styles.vaultingLabel}>VAULTING</Text>
+        <Text style={styles.vaultingTitle}>Get Your Cards Vaulted & Professionally Graded</Text>
+      </View>
+      <View style={styles.vaultingBottomContent}>
+        <View style={styles.vaultingLeftContent}>
+          <Text style={styles.vaultingDescription}>
+            Secure storage for your valuable cards in a climate controlled facility. Get your cards professionally graded and authenticated by industry experts before vaulting. We can sell them for you when you're ready.
+          </Text>
+          <TouchableOpacity
+            style={styles.vaultingButton}
+            activeOpacity={0.7}
+          >
+            <Ionicons
+              name="shield-checkmark-outline"
+              size={16}
+              color="#FFFFFF"
+              style={styles.shieldIcon}
             />
-          )}
-          <View style={styles.vaultingContent}>
-            <View style={styles.vaultingTopContent}>
-              <Text style={styles.vaultingLabel}>VAULTING</Text>
-              <Text style={styles.vaultingTitle}>{item.title}</Text>
-            </View>
-            <View style={styles.vaultingBottomContent}>
-              <View style={styles.vaultingLeftContent}>
-                <Text style={styles.vaultingDescription}>{item.description}</Text>
-                <TouchableOpacity
-                  style={styles.vaultingButton}
-                  activeOpacity={0.7}
-                >
-                  <Ionicons
-                    name="shield-checkmark-outline"
-                    size={16}
-                    color="#FFFFFF"
-                    style={styles.shieldIcon}
-                  />
-                  <Text style={styles.vaultingButtonText}>{item.buttonText}</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
+            <Text style={styles.vaultingButtonText}>Apply Today</Text>
+          </TouchableOpacity>
         </View>
-      )}
-      itemWidth={360}
-      itemHeight={200}
-      itemSpacing={8}
-    />
+        <View style={styles.vaultingRightContent}>
+          <Image
+            source={require('../../../assets/banner/slabs.png')}
+            style={styles.vaultingImage}
+            resizeMode="cover"
+          />
+        </View>
+      </View>
+    </View>
   )
 }
 
 const getStyles = (theme: any) => StyleSheet.create({
   vaultingCard: {
     width: '100%',
-    height: '100%',
     borderRadius: RADIUS.lg,
     overflow: 'hidden',
     padding: SPACING.cardPadding,
     justifyContent: 'space-between',
     borderWidth: 1,
     borderColor: theme.borderColor || 'rgba(255, 255, 255, 0.1)',
-    position: 'relative',
-  },
-  vaultingBackgroundImage: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    opacity: 0.3,
-  },
-  vaultingContent: {
-    flex: 1,
-    justifyContent: 'space-between',
-    zIndex: 1,
+    backgroundColor: theme.cardBackground || '#000000',
+    minHeight: 200,
   },
   vaultingTopContent: {
     width: '100%',
-    marginBottom: 10,
+    marginBottom: 12,
   },
   vaultingLabel: {
     fontSize: TYPOGRAPHY.caption,
@@ -122,24 +77,22 @@ const getStyles = (theme: any) => StyleSheet.create({
     lineHeight: 24,
     letterSpacing: -0.2,
     width: '100%',
-    textShadowColor: 'rgba(0, 0, 0, 0.5)',
-    textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 3,
   },
   vaultingBottomContent: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    flex: 1,
+    gap: SPACING.md,
   },
   vaultingLeftContent: {
     flex: 1,
-    width: '100%',
+    width: '50%',
+    paddingRight: SPACING.sm,
     justifyContent: 'space-between',
   },
   vaultingDescription: {
     fontSize: TYPOGRAPHY.bodySmall,
     fontFamily: theme.regularFont,
-    color: 'rgba(255, 255, 255, 0.9)',
+    color: theme.mutedForegroundColor || 'rgba(255, 255, 255, 0.8)',
     lineHeight: 18,
     marginBottom: 12,
     flexShrink: 1,
@@ -151,9 +104,9 @@ const getStyles = (theme: any) => StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: RADIUS.lg,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: theme.tintColor || '#73EC8B',
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.3)',
+    borderColor: theme.tintColor || '#73EC8B',
   },
   shieldIcon: {
     marginRight: 6,
@@ -161,8 +114,20 @@ const getStyles = (theme: any) => StyleSheet.create({
   vaultingButtonText: {
     fontSize: TYPOGRAPHY.body,
     fontFamily: theme.semiBoldFont,
-    color: theme.textColor,
+    color: theme.tintTextColor || '#000000',
     fontWeight: '600',
     letterSpacing: 0.3,
+  },
+  vaultingRightContent: {
+    flex: 1,
+    width: '50%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 160,
+  },
+  vaultingImage: {
+    width: '100%',
+    height: 160,
+    borderRadius: RADIUS.md,
   },
 })
