@@ -90,6 +90,7 @@ export function StoreHeader({
             currentXP={currentXP}
             xpToNextLevel={xpToNextLevel}
             showVertical={false}
+            profileImage={profileImage}
           />
 
           <View style={styles.shareButtonContainer}>

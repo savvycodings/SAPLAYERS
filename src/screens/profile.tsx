@@ -55,6 +55,10 @@ export function Profile() {
             { x: 5, y: 58 },
             { x: 6, y: 67 },
           ]}
+          level={3}
+          currentXP={450}
+          xpToNextLevel={600}
+          profileImage={require('../../assets/Avatars/guy1.jpg')}
           onEditPress={() => {
             // TODO: Handle edit profile
           }}

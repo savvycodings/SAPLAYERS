@@ -1,10 +1,11 @@
-import { View, StyleSheet, TouchableOpacity, Dimensions, LayoutChangeEvent, PanResponder } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Dimensions, LayoutChangeEvent, PanResponder, Image } from 'react-native'
 import { useContext, useState, useMemo, useRef } from 'react'
 import { Text } from '../ui/text'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import Svg, { Circle, Path, Line } from 'react-native-svg'
 import { ThemeContext } from '../../context'
 import { SPACING, TYPOGRAPHY, RADIUS } from '../../constants/layout'
+import { ProgressBars } from '../store'
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window')
 
@@ -26,6 +27,10 @@ interface ProfileHeaderProps {
   portfolioValue?: string
   stats?: PortfolioStats
   portfolioData?: GraphDataPoint[]
+  level?: number
+  currentXP?: number
+  xpToNextLevel?: number
+  profileImage?: any
   onEditPress?: () => void
 }
 
@@ -48,6 +53,10 @@ export function ProfileHeader({
     { x: 5, y: 58 },
     { x: 6, y: 67 },
   ],
+  level,
+  currentXP,
+  xpToNextLevel,
+  profileImage,
   onEditPress,
 }: ProfileHeaderProps) {
   const { theme } = useContext(ThemeContext)
@@ -174,7 +183,6 @@ export function ProfileHeader({
     }
   }
 
-  // Pan responder for chart interaction
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
@@ -192,14 +200,12 @@ export function ProfileHeader({
   ).current
 
   const handleTouch = (x: number) => {
-    // Adjust x for Y-axis width
     const chartX = x - yAxisWidth
     if (chartX < 0 || chartX > graphWidth) {
       setSelectedPoint(null)
       return
     }
 
-    // Find closest point
     const closestPoint = normalizedPoints.reduce((prev, curr, index) => {
       const prevDist = Math.abs(prev.x - chartX)
       const currDist = Math.abs(curr.x - chartX)
@@ -243,7 +249,15 @@ export function ProfileHeader({
             onPressIn={() => setIsHovering(true)}
             onPressOut={() => setIsHovering(false)}
           >
-            <Text style={styles.profileInitials}>{initials}</Text>
+            {profileImage ? (
+              <Image
+                source={profileImage}
+                style={styles.profileImage}
+                resizeMode="cover"
+              />
+            ) : (
+              <Text style={styles.profileInitials}>{initials}</Text>
+            )}
             {isHovering && (
               <View style={styles.editIconContainer}>
                 <Ionicons
@@ -257,7 +271,27 @@ export function ProfileHeader({
         </View>
 
         {/* User Name - Prominent */}
-        <Text style={styles.userNameLarge}>{userName}</Text>
+        <View style={styles.userNameRow}>
+          <Text style={styles.userNameLarge}>{userName}</Text>
+          {level !== undefined && (
+            <View style={styles.levelBadge}>
+              <Text style={styles.levelText}>Lv {level}</Text>
+            </View>
+          )}
+        </View>
+
+        {/* Level Progress Bar */}
+        {level !== undefined && currentXP !== undefined && xpToNextLevel !== undefined && (
+          <View style={styles.progressContainer}>
+            <ProgressBars
+              level={level}
+              currentXP={currentXP}
+              xpToNextLevel={xpToNextLevel}
+              showVertical={false}
+              profileImage={profileImage}
+            />
+          </View>
+        )}
 
         {/* Portfolio Value - Prominent */}
         <View style={styles.portfolioValueSection}>
@@ -480,6 +514,11 @@ const getStyles = (theme: any) => StyleSheet.create({
     borderWidth: 2,
     borderColor: 'rgba(255, 255, 255, 0.2)',
     position: 'relative',
+    overflow: 'hidden',
+  },
+  profileImage: {
+    width: '100%',
+    height: '100%',
   },
   profileInitials: {
     color: theme.backgroundColor,
@@ -497,6 +536,22 @@ const getStyles = (theme: any) => StyleSheet.create({
     borderRadius: RADIUS.full,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  progressContainer: {
+    marginBottom: SPACING.md,
+    marginTop: SPACING.xs,
+  },
+  levelBadge: {
+    backgroundColor: theme.tintColor || '#73EC8B',
+    paddingHorizontal: SPACING.sm,
+    paddingVertical: SPACING.xs,
+    borderRadius: RADIUS.sm,
+  },
+  levelText: {
+    fontSize: TYPOGRAPHY.caption,
+    fontFamily: theme.boldFont,
+    color: '#000000',
+    fontWeight: '600',
   },
   portfolioValueSection: {
     marginBottom: SPACING.md,
@@ -665,13 +720,18 @@ const getStyles = (theme: any) => StyleSheet.create({
     color: 'rgba(255, 255, 255, 0.5)',
     letterSpacing: 0.2,
   },
+  userNameRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: SPACING.sm,
+    marginBottom: SPACING.xs,
+  },
   userNameLarge: {
     fontSize: TYPOGRAPHY.h1 * 1.2,
     fontFamily: theme.boldFont,
     color: theme.textColor,
     fontWeight: '700',
     marginTop: -SPACING.xs,
-    marginBottom: SPACING.sm,
     letterSpacing: -0.3,
   },
 })

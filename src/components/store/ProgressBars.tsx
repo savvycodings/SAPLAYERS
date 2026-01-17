@@ -11,6 +11,7 @@ interface ProgressBarsProps {
   currentXP: number
   xpToNextLevel: number
   showVertical?: boolean
+  profileImage?: any
 }
 
 // Get the reward for the next level
@@ -33,13 +34,20 @@ export function ProgressBars({
   currentXP,
   xpToNextLevel,
   showVertical = false,
+  profileImage,
 }: ProgressBarsProps) {
   const { theme } = useContext(ThemeContext)
   const styles = getStyles(theme)
   const [modalVisible, setModalVisible] = useState(false)
+  const [selectedLevel, setSelectedLevel] = useState<number | null>(null)
 
   const progress = (currentXP / xpToNextLevel) * 100
   const nextReward = getNextLevelReward(level)
+
+  const handleLevelPress = (lvl: number) => {
+    setSelectedLevel(lvl)
+    setModalVisible(true)
+  }
 
   return (
     <>
@@ -64,7 +72,7 @@ export function ProgressBars({
             {nextReward && (
               <TouchableOpacity
                 style={styles.rewardContainer}
-                onPress={() => setModalVisible(true)}
+                onPress={() => handleLevelPress(level + 1)}
                 activeOpacity={0.7}
               >
                 <Ionicons
@@ -82,13 +90,16 @@ export function ProgressBars({
         </View>
       </View>
 
-      {nextReward && (
-        <LevelRewardModal
-          visible={modalVisible}
-          level={level + 1}
-          onClose={() => setModalVisible(false)}
-        />
-      )}
+      <LevelRewardModal
+        visible={modalVisible}
+        level={selectedLevel || level + 1}
+        userCurrentLevel={level}
+        profileImage={profileImage}
+        onClose={() => {
+          setModalVisible(false)
+          setSelectedLevel(null)
+        }}
+      />
     </>
   )
 }
@@ -107,6 +118,8 @@ const getStyles = (theme: any) => StyleSheet.create({
     backgroundColor: theme.buttonBackground || 'rgba(0, 0, 0, 0.8)',
     borderRadius: RADIUS.sm,
     overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
   },
   verticalFill: {
     width: '100%',
@@ -130,6 +143,8 @@ const getStyles = (theme: any) => StyleSheet.create({
     borderRadius: RADIUS.sm,
     overflow: 'hidden',
     marginBottom: SPACING.xs,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
   },
   horizontalFill: {
     height: '100%',
