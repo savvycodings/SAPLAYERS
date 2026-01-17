@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState, useMemo } from 'react'
 import {
   View,
   StyleSheet,
@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   Dimensions,
   ScrollView,
+  TextInput,
+  Platform,
 } from 'react-native'
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
@@ -105,6 +107,7 @@ export function SetProducts() {
   const route = useRoute<SetProductsScreenRouteProp>()
   const { setName, setImage } = route.params || { setName: '', setImage: null }
   const styles = getStyles(theme)
+  const [searchQuery, setSearchQuery] = useState('')
 
   const formatName = (name: string) => {
     return name
@@ -115,7 +118,7 @@ export function SetProducts() {
   }
 
   // Filter products by set name - match by set property or by product name containing set name
-  const setProducts = allProducts.filter(product => {
+  const allSetProducts = allProducts.filter(product => {
     if (!product.set) return false
     
     const productSet = product.set.toLowerCase().replace(/[-_]/g, '')
@@ -145,68 +148,112 @@ export function SetProducts() {
     return false
   })
 
+  // Filter products by search query
+  const setProducts = useMemo(() => {
+    if (!searchQuery.trim()) {
+      return allSetProducts
+    }
+    
+    const query = searchQuery.toLowerCase().replace(/[-_]/g, ' ')
+    return allSetProducts.filter(product => {
+      const productName = formatName(product.name).toLowerCase()
+      return productName.includes(query)
+    })
+  }, [allSetProducts, searchQuery])
+
   return (
     <View style={styles.container}>
-      {/* Set Logo Card with White Background - Full Height to Top */}
-      {setImage && (
-        <Card style={styles.logoCard}>
-          <CardContent style={styles.logoCardContent}>
-            {/* Header with back button - Inside white card */}
-            <View style={styles.headerInsideCard}>
-              <TouchableOpacity
-                onPress={() => navigation.goBack()}
-                style={styles.backButton}
-                activeOpacity={0.7}
-              >
-                <Ionicons name="chevron-back" size={28} color="#000000" />
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.logoImageContainer}>
-              <Image
-                source={setImage}
-                style={styles.logoImage}
-                resizeMode="contain"
-              />
-            </View>
-            
-            {/* Top Sellers Avatars - Centered */}
-            <View style={styles.sellersContainer}>
-              <View style={styles.sellersRow}>
-                {topSellers.map((seller, index) => (
-                  <View key={index} style={styles.sellerAvatarContainer}>
-                    <TouchableOpacity
-                      onPress={() => {
-                        navigation.navigate('ViewProfile', {
-                          userId: `user-${seller.first.toLowerCase()}-${seller.last.toLowerCase()}`,
-                          userName: `${seller.first} ${seller.last}`,
-                          userImage: seller.image,
-                          userInitials: `${seller.first[0]}${seller.last[0]}`.toUpperCase(),
-                          verified: false,
-                        })
-                      }}
-                      activeOpacity={0.7}
-                    >
-                      <Image
-                        source={seller.image}
-                        style={styles.sellerAvatar}
-                      />
-                    </TouchableOpacity>
-                    <Text style={styles.sellerName} numberOfLines={1}>
-                      {seller.first}
-                    </Text>
-                  </View>
-                ))}
-              </View>
-            </View>
-          </CardContent>
-        </Card>
-      )}
+      {/* Header with back button - Fixed at top */}
+      <View style={styles.fixedHeader}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={styles.backButton}
+          activeOpacity={0.7}
+        >
+          <Ionicons name="chevron-back" size={28} color={theme.textColor} />
+        </TouchableOpacity>
+      </View>
 
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
+        {/* Set Logo Card with White Background - Now scrolls with content */}
+        {setImage && (
+          <Card style={styles.logoCard}>
+            <CardContent style={styles.logoCardContent}>
+              <View style={styles.logoImageContainer}>
+                <Image
+                  source={setImage}
+                  style={styles.logoImage}
+                  resizeMode="contain"
+                />
+              </View>
+              
+              {/* Top Sellers Avatars - Centered */}
+              <View style={styles.sellersContainer}>
+                <View style={styles.sellersRow}>
+                  {topSellers.map((seller, index) => (
+                    <View key={index} style={styles.sellerAvatarContainer}>
+                      <TouchableOpacity
+                        onPress={() => {
+                          navigation.navigate('ViewProfile', {
+                            userId: `user-${seller.first.toLowerCase()}-${seller.last.toLowerCase()}`,
+                            userName: `${seller.first} ${seller.last}`,
+                            userImage: seller.image,
+                            userInitials: `${seller.first[0]}${seller.last[0]}`.toUpperCase(),
+                            verified: false,
+                          })
+                        }}
+                        activeOpacity={0.7}
+                      >
+                        <Image
+                          source={seller.image}
+                          style={styles.sellerAvatar}
+                        />
+                      </TouchableOpacity>
+                      <Text style={styles.sellerName} numberOfLines={1}>
+                        {seller.first}
+                      </Text>
+                    </View>
+                  ))}
+                </View>
+              </View>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Search Bar */}
+        <View style={styles.searchContainer}>
+          <View style={styles.searchBar}>
+            <Ionicons
+              name="search-outline"
+              size={20}
+              color={theme.mutedForegroundColor || 'rgba(255, 255, 255, 0.6)'}
+              style={styles.searchIcon}
+            />
+            <TextInput
+              style={styles.searchText}
+              placeholder="Search products..."
+              placeholderTextColor={theme.mutedForegroundColor || 'rgba(255, 255, 255, 0.6)'}
+              underlineColorAndroid="transparent"
+              value={searchQuery}
+              onChangeText={setSearchQuery}
+            />
+            {searchQuery.length > 0 && (
+              <TouchableOpacity
+                onPress={() => setSearchQuery('')}
+                style={styles.clearButton}
+              >
+                <Ionicons 
+                  name="close-circle" 
+                  size={20} 
+                  color={theme.mutedForegroundColor || 'rgba(255, 255, 255, 0.6)'} 
+                />
+              </TouchableOpacity>
+            )}
+          </View>
+        </View>
 
         {/* Products Section */}
         {setProducts.length > 0 ? (
@@ -287,17 +334,26 @@ const getStyles = (theme: any) => StyleSheet.create({
     flex: 1,
     backgroundColor: theme.backgroundColor,
   },
+  fixedHeader: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 100,
+    paddingTop: SPACING.lg,
+    paddingLeft: SPACING.containerPadding,
+    paddingRight: SPACING.containerPadding,
+    backgroundColor: 'transparent',
+  },
   scrollContent: {
     paddingHorizontal: SPACING.containerPadding,
-    paddingTop: SPACING.md,
+    paddingTop: SPACING['3xl'] + 40, // Extra padding to account for back button (28px icon + 12px padding)
     paddingBottom: SPACING['4xl'],
   },
   logoCard: {
     backgroundColor: '#FFFFFF',
-    borderRadius: 0,
-    borderBottomLeftRadius: RADIUS.lg,
-    borderBottomRightRadius: RADIUS.lg,
-    marginBottom: SPACING.md,
+    borderRadius: RADIUS.lg,
+    marginBottom: SPACING.lg,
     overflow: 'hidden',
     shadowColor: '#000',
     shadowOffset: {
@@ -310,13 +366,6 @@ const getStyles = (theme: any) => StyleSheet.create({
   },
   logoCardContent: {
     padding: SPACING.lg,
-    paddingTop: SPACING['3xl'],
-  },
-  headerInsideCard: {
-    position: 'absolute',
-    top: SPACING.lg,
-    left: SPACING.containerPadding,
-    zIndex: 10,
   },
   backButton: {
     padding: SPACING.sm,
@@ -338,14 +387,16 @@ const getStyles = (theme: any) => StyleSheet.create({
   },
   sellersRow: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    flexWrap: 'wrap',
-    gap: SPACING.md,
+    flexWrap: 'nowrap',
+    width: '100%',
+    gap: SPACING.xs,
   },
   sellerAvatarContainer: {
     alignItems: 'center',
-    width: 70,
+    flex: 1,
+    minWidth: 0,
   },
   sellerAvatar: {
     width: 60,
@@ -361,8 +412,39 @@ const getStyles = (theme: any) => StyleSheet.create({
     color: '#000000',
     textAlign: 'center',
   },
+  searchContainer: {
+    marginBottom: SPACING.lg,
+  },
+  searchBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: theme.cardBackground || '#000000',
+    borderRadius: RADIUS.full,
+    paddingHorizontal: SPACING.md,
+    paddingVertical: SPACING.sm,
+    borderWidth: 1,
+    borderColor: theme.borderColor || 'rgba(255, 255, 255, 0.08)',
+  },
+  searchIcon: {
+    marginRight: SPACING.xs,
+  },
+  searchText: {
+    flex: 1,
+    color: theme.textColor,
+    fontFamily: theme.regularFont,
+    fontSize: TYPOGRAPHY.body,
+    ...(Platform.OS === 'web' ? {
+      outline: 'none',
+      outlineWidth: 0,
+      outlineStyle: 'none',
+    } : {}),
+  },
+  clearButton: {
+    marginLeft: SPACING.xs,
+    padding: SPACING.xs / 2,
+  },
   productsSection: {
-    marginTop: SPACING.sm,
+    marginTop: 0,
   },
   sectionHeader: {
     flexDirection: 'row',

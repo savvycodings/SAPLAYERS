@@ -2,7 +2,7 @@ import { useContext, useRef, useCallback } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Shop, Settings, Search, Grade, Profile, Product, Category, SetProducts, ViewProfile } from './screens'
+import { Shop, Settings, Search, Grade, Profile, Product, Category, SetProducts, ViewProfile, MyStore } from './screens'
 import { Header } from './components'
 import FeatherIcon from '@expo/vector-icons/Feather'
 import {
@@ -58,6 +58,20 @@ function ProfileStack() {
       <Stack.Screen name="ProfileMain" component={Profile} />
       <Stack.Screen name="Product" component={Product} />
       <Stack.Screen name="ViewProfile" component={ViewProfile} />
+    </Stack.Navigator>
+  )
+}
+
+// MyStore Stack Navigator
+function MyStoreStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="MyStoreMain" component={MyStore} />
+      <Stack.Screen name="Product" component={Product} />
     </Stack.Navigator>
   )
 }
@@ -135,6 +149,21 @@ function MainComponent() {
             tabBarIcon: ({ color, size }) => (
               <FeatherIcon
                 name="user"
+                color={color}
+                size={size}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="MyStore"
+          component={MyStoreStack}
+          options={{
+            headerShown: false,
+            tabBarLabel: 'My Store',
+            tabBarIcon: ({ color, size }) => (
+              <FeatherIcon
+                name="shopping-bag"
                 color={color}
                 size={size}
               />
